@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderSyncronizedService {
 
     private final ProductRepository productRepository;
 

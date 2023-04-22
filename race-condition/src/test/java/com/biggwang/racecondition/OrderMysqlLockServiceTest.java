@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Slf4j
 @Rollback(value = false)
 @SpringBootTest
-class OrderServiceTest {
+class OrderMysqlLockServiceTest {
 
     @Autowired
-    private OrderSyncronizedService orderSyncronizedService;
+    private OrderMysqlLockService orderMysqlLockService;
     @Autowired
     private ProductRepository productRepository;
 
@@ -39,11 +39,17 @@ class OrderServiceTest {
     }
 
     @Test
+    @Transactional
+    public void temp() {
+        productRepository.findByWithPessimisticLock(productId);
+    }
+
+    @Test
     public void 동시에_상품을_주문하면_최대수량만큼만_주문되는지_테스트() throws Exception {
         IntStream.rangeClosed(1, thread).forEach(i -> {
             es.submit(() -> {
                 barrier.await();
-                orderSyncronizedService.order(productId);
+                orderMysqlLockService.order(productId);
                 return null;
             });
         });
