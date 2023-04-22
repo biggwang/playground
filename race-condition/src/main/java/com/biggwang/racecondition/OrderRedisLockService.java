@@ -1,13 +1,11 @@
 package com.biggwang.racecondition;
 
+import com.biggwang.racecondition.redis.RedissonLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -18,6 +16,16 @@ public class OrderRedisLockService {
 
     @Transactional
     public void order(int productId) {
+        doOrder(productId);
+    }
+
+    @RedissonLock(key = "productId", waitTime = 60)
+    @Transactional
+    public void orderOnAnnotation(int productId) {
+        doOrder(productId);
+    }
+
+    private void doOrder(int productId) {
         Product product = productRepository.findById(productId).orElseGet(() -> {
             log.error("상품 등록 필요: {}", productId);
             throw new RuntimeException("상품부터 등록해!!");
