@@ -1,5 +1,8 @@
 package com.biggwang.racecondition;
 
+import com.biggwang.racecondition.helper.RaceConditionAssertHelper;
+import com.biggwang.racecondition.repository.Product;
+import com.biggwang.racecondition.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +41,7 @@ class OrderServiceTest {
     }
 
     @Test
-    public void 동시에_상품을_주문하면_최대수량만큼만_주문되는지_테스트() throws Exception {
+    public void 자바_syncronized_로_레이스_컨디션_테스트() throws Exception {
         helper.request(thread, es, barrier, productId, (p) -> orderSyncronizedService.order(productId));
     }
 }

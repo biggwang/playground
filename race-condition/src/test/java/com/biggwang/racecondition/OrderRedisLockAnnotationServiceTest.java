@@ -1,8 +1,10 @@
 package com.biggwang.racecondition;
 
+import com.biggwang.racecondition.helper.RaceConditionAssertHelper;
+import com.biggwang.racecondition.repository.Product;
+import com.biggwang.racecondition.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,14 +14,13 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Disabled("속도가 느려서 확인 필요")
 @Slf4j
 @Rollback(value = false)
 @SpringBootTest
 class OrderRedisLockAnnotationServiceTest {
 
     @Autowired
-    private OrderRedisLockService redisLockService;
+    private OrderRedissonLockService redisLockService;
     @Autowired
     private ProductRepository productRepository;
 
@@ -40,7 +41,7 @@ class OrderRedisLockAnnotationServiceTest {
     }
 
     @Test
-    public void 동시에_상품을_주문하면_최대수량만큼만_주문되는지_테스트() throws Exception {
+    public void 레디슨_어노테이션_레이스컨디션_테스트() throws Exception {
         helper.request(thread, es, barrier, productId, (p) -> redisLockService.orderOnAnnotation(productId));
     }
 }

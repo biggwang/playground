@@ -1,5 +1,8 @@
 package com.biggwang.racecondition;
 
+import com.biggwang.racecondition.helper.RaceConditionAssertHelper;
+import com.biggwang.racecondition.repository.Product;
+import com.biggwang.racecondition.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,19 +17,18 @@ import java.util.concurrent.Executors;
 @Slf4j
 @Rollback(value = false)
 @SpringBootTest
-class OrderTimeAttackRedisLockServiceTest {
+class OrderRedissonLockServiceTest {
 
     @Autowired
-    private OrderTimeAttackRedisLockService orderTimeAttackRedisLockService;
+    private OrderRedissonFacade orderRedissonFacade;
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private InventoryRepository inventoryRepository;
 
     @Autowired
     private RaceConditionAssertHelper helper;
 
-    private int thread = 10;
+    private int thread = 1000;
+    private int max = thread / 2;
     private int productId = 0;
 
     private ExecutorService es = Executors.newFixedThreadPool(thread);
@@ -35,13 +37,11 @@ class OrderTimeAttackRedisLockServiceTest {
     @BeforeEach
     public void load() {
         productRepository.deleteAll();
-        inventoryRepository.deleteAll();
-        productId = productRepository.save(new Product("나이키신발", 1)).getId(); // 상품이
-        inventoryRepository.save(new Inventory(productId));
+        productId = productRepository.save(new Product("나이키신발", max)).getId();
     }
 
     @Test
-    public void 동시에_상품을_주문하면_딱1개만_주문되는지_테스트() throws Exception {
-        helper.request(thread, es, barrier, productId, (p) -> orderTimeAttackRedisLockService.order(productId));
+    public void 레디슨_어노테이션_사용하지_않고_파사트_조합으로_레이스컨디션_테스트() throws Exception {
+        helper.request(thread, es, barrier, productId, (p) -> orderRedissonFacade.doOrder(productId));
     }
 }

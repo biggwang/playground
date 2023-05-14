@@ -1,4 +1,4 @@
-package com.biggwang.racecondition.redis;
+package com.biggwang.racecondition.redisson;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

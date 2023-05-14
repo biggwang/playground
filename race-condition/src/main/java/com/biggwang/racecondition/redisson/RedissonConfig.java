@@ -1,4 +1,4 @@
-package com.biggwang.racecondition.redis;
+package com.biggwang.racecondition.redisson;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
