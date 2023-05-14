@@ -4,8 +4,8 @@ import com.biggwang.racecondition.redis.RedissonLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Slf4j
 @Service
@@ -20,7 +20,7 @@ public class OrderRedisLockService {
     }
 
     @RedissonLock(key = "productId", waitTime = 60)
-    @Transactional
+//    @Transactional // Redisson 이랑 같이 사용하면 lock 이 제대로 동작 되지 않음;;
     public void orderOnAnnotation(int productId) {
         doOrder(productId);
     }

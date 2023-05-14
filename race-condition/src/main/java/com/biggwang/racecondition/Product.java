@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Entity
@@ -34,8 +33,8 @@ public class Product {
     }
 
     public void order() {
-        if (currentQuantity <= maxQuantity) {
-            ++this.currentQuantity;
+        if (currentQuantity < maxQuantity) {
+            ++currentQuantity;
             log.info("구매 성공, 현재 갯수: {}, 남은 갯수: {}", currentQuantity, maxQuantity - currentQuantity);
             return;
         }

@@ -10,10 +10,6 @@ import org.springframework.test.annotation.Rollback;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 @Rollback(value = false)
@@ -25,7 +21,11 @@ class OrderRedisLockServiceTest {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private RaceConditionAssertHelper helper;
+
     private int thread = 1000;
+    private int max = thread / 2;
     private int productId = 0;
 
     private ExecutorService es = Executors.newFixedThreadPool(thread);
@@ -34,24 +34,11 @@ class OrderRedisLockServiceTest {
     @BeforeEach
     public void load() {
         productRepository.deleteAll();
-        productId = productRepository.save(new Product("나이키신발", thread)).getId();
+        productId = productRepository.save(new Product("나이키신발", max)).getId();
     }
 
     @Test
     public void 동시에_상품을_주문하면_최대수량만큼만_주문되는지_테스트() throws Exception {
-        IntStream.rangeClosed(1, thread)
-                .forEach(i ->
-                        es.submit(() -> {
-                            barrier.await();
-                            redisLockService.orderAfterLock(productId);
-                            return null;
-                        })
-                );
-        es.shutdown();
-        es.awaitTermination(100, TimeUnit.SECONDS);
-
-        Product product = productRepository.findById(productId).orElseThrow();
-        log.info("현재 수량: {}, 최대 수량: {}", product.getCurrentQuantity(), product.getMaxQuantity());
-        assertEquals(product.getCurrentQuantity(), product.getMaxQuantity());
+        helper.request(thread, es, barrier, productId, (p) -> redisLockService.orderAfterLock(productId));
     }
 }

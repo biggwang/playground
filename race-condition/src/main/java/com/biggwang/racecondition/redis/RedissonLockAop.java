@@ -26,27 +26,18 @@ public class RedissonLockAop {
         Method method = signature.getMethod();
         RedissonLock redissonLock = method.getAnnotation(RedissonLock.class);
 
-        /* create key */
-        String key = this.createKey(signature.getParameterNames(), joinPoint.getArgs(), redissonLock.key());
-
-        /* get rLock 객체 */
+        String key = joinPoint.getArgs()[0].toString();
         RLock rock = redissonClient.getLock(key);
 
         try {
-            /* get lock */
             boolean isPossible = rock.tryLock(redissonLock.waitTime(), redissonLock.leaseTime(), redissonLock.timeUnit());
             if (!isPossible) {
                 log.warn("락 획득 실패");
                 return false;
             }
-
-            log.info("Redisson Lock Key : {}", key);
-
-            /* service call */
             return redissonCallTransaction.proceed(joinPoint);
-        } catch (Exception e) {
-            throw new InterruptedException();
         } finally {
+            log.info("락 해제");
             rock.unlock(); // 중요!! line 46 보다 나중에 락을 해제해야 더티 리드가 생기지 않는다.
         }
     }
