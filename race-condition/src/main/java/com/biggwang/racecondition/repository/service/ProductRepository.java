@@ -1,4 +1,4 @@
-package com.biggwang.racecondition.repository;
+package com.biggwang.racecondition.repository.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;

@@ -1,7 +1,7 @@
 package com.biggwang.racecondition.helper;
 
-import com.biggwang.racecondition.repository.Product;
-import com.biggwang.racecondition.repository.ProductRepository;
+import com.biggwang.racecondition.repository.service.Product;
+import com.biggwang.racecondition.repository.service.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

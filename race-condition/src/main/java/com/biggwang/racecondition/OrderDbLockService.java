@@ -1,12 +1,11 @@
 package com.biggwang.racecondition;
 
-import com.biggwang.racecondition.repository.Product;
-import com.biggwang.racecondition.repository.ProductRepository;
+import com.biggwang.racecondition.repository.service.Product;
+import com.biggwang.racecondition.repository.service.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -15,7 +14,7 @@ public class OrderDbLockService {
 
     private final ProductRepository productRepository;
 
-    @Transactional
+    @Transactional("serviceTransactionManager")
     public void order(int productId) {
         Product product = productRepository.findByWithPessimisticLock(productId).orElseGet(() -> {
             log.error("상품 등록 필요: {}", productId);

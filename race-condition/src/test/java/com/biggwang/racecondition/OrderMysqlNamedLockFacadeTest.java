@@ -17,17 +17,19 @@ import java.util.concurrent.Executors;
 @Slf4j
 @Rollback(value = false)
 @SpringBootTest
-class OrderDbLockServiceTest {
+class OrderMysqlNamedLockFacadeTest {
 
     @Autowired
-    private OrderDbLockService orderDbLockService;
+    private OrderMysqlNamedLockFacade orderMysqlNamedLockFacade;
+
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private RaceConditionAssertHelper helper;
 
-    private int thread = 10;
+    private int thread = 1000;
+    private int total = thread / 2;
     private int productId = 0;
 
     private ExecutorService es = Executors.newFixedThreadPool(thread);
@@ -37,11 +39,12 @@ class OrderDbLockServiceTest {
     @BeforeEach
     public void load() {
         productRepository.deleteAll();
-        productId = productRepository.save(new Product("나이키신발", thread)).getId();
+        productId = productRepository.save(new Product("나이키신발", total)).getId();
     }
 
     @Test
     public void 디비락으로_레이스컨디션_테스트() throws Exception {
-        helper.request(thread, es, barrier, productId, (p) -> orderDbLockService.order(productId));
+        helper.request(thread, es, barrier, productId, (p) -> orderMysqlNamedLockFacade.order(productId));
     }
+
 }

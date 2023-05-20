@@ -1,4 +1,4 @@
-package com.biggwang.racecondition.repository;
+package com.biggwang.racecondition.repository.service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

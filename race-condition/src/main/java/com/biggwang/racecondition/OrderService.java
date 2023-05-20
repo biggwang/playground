@@ -1,30 +1,22 @@
 package com.biggwang.racecondition;
 
-import com.biggwang.racecondition.redisson.RedissonLock;
 import com.biggwang.racecondition.repository.service.Product;
 import com.biggwang.racecondition.repository.service.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrderRedissonLockService {
+public class OrderService {
 
     private final ProductRepository productRepository;
 
     @Transactional("serviceTransactionManager")
     public void order(int productId) {
-        doOrder(productId);
-    }
-
-    @RedissonLock(key = "productId", waitTime = 60)
-    @Transactional("serviceTransactionManager")
-    public void orderOnAnnotation(int productId) {
         doOrder(productId);
     }
 

@@ -1,11 +1,9 @@
 package com.biggwang.racecondition;
 
-import com.biggwang.racecondition.repository.Product;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 

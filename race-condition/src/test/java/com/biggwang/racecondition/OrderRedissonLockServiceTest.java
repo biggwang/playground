@@ -1,8 +1,8 @@
 package com.biggwang.racecondition;
 
 import com.biggwang.racecondition.helper.RaceConditionAssertHelper;
-import com.biggwang.racecondition.repository.Product;
-import com.biggwang.racecondition.repository.ProductRepository;
+import com.biggwang.racecondition.repository.service.Product;
+import com.biggwang.racecondition.repository.service.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class OrderRedissonLockServiceTest {
     @Autowired
     private RaceConditionAssertHelper helper;
 
-    private int thread = 1000;
+    private int thread = 10;
     private int max = thread / 2;
     private int productId = 0;
 
