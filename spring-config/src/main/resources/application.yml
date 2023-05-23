@@ -9,7 +9,3 @@ spring:
           clone-on-start: true
           search-paths: ironman/**
           default-label: main
-#  security:
-#    user:
-#      name: root
-#      password: s3cr3t
