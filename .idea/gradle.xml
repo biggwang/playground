@@ -25,6 +25,26 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/spring-config-client" />
+        <option name="gradleJvm" value="openjdk-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/spring-config-client" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../repo/config-repo/ironman/spring-confing-client" />
+        <option name="gradleJvm" value="openjdk-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../repo/config-repo/ironman/spring-confing-client" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
