@@ -3,6 +3,9 @@ spring:
     name: ironman
   profiles:
     active: switch-develop
+  cloud:
+    bus:
+      destination: jaehun-platform.prod.event.config-event.json
   config:
     import: optional:configserver:http://localhost:8080
 
@@ -10,4 +13,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh
+        include: refresh, busrefresh

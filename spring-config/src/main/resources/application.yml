@@ -2,10 +2,17 @@ spring:
   application:
     name: veronica
   cloud:
+    bus:
+      destination: jaehun-platform.prod.event.config-event.json
     config:
+      monitor:
+        endpoint:
+          path: /api/v1/remote-configurations
       server:
         git:
           uri: https://github.com/biggwang/spring-config-repo
           clone-on-start: true
           search-paths: ironman/**
           default-label: main
+  kafka:
+    bootstrap-servers: http://localhost:9092
