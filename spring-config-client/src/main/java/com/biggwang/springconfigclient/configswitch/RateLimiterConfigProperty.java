@@ -1,4 +1,4 @@
-package com.biggwang.springconfigclient;
+package com.biggwang.springconfigclient.configswitch;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,13 +6,17 @@ import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
+import java.util.List;
+
 @Setter
 @Getter
-@ConfigurationProperties("transfer.asset")
+@ConfigurationProperties("rate-limiter")
 @RefreshScope
 @ToString
-public class AssetTransferSwitch {
+public class RateLimiterConfigProperty {
 
-    private String enable;
+    private boolean enable = false;
+
+    public List<RateLimiterConfigDto> targets;
 
 }

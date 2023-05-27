@@ -21,13 +21,35 @@
 - event bus
    - 이게 제일 나은 방식이라고 생각한다 카프카를 붙이던
 
-## event bus를 이용하여 설정값 자동 갱신하기
-- config-client 서버에서 /actuator/busrefresh 를 하면 카프카로 전달되어 다른 서버에도 전달이 되겠지만 서버가 여러대 있으면 특정 서버를 지정에서 actuator를 요청하기는 어렵다
-- 그래서 먼저 github webhook을 이용하여 config-server에 이벤트를 전달해 줘야 하는데, github에 바로 쏘면 config-server가 잘 못 받는다고 한다 ([참고](https://happycloud-lee.tistory.com/211)) 
-  그래서 별도 서버를 구축하는데 이것도 귀찮고 불필요하니 config-monitor를 꽂으면 그 역활을 해준다고 한다.
-- config-monitor 라이브러리를 추가하여 /monitor라는 엔드포인트를 활성화 시켜서 git push 가 발생하면 github 에서 webhook으로 config-server에 /monitor 를 호출하게 한다
-- 그러면 그것이 카프카로 이벤트가 전달 되고 client가 일괄 refresh 하게 되어 컨피그 값이 바뀌게 된다.
-- 참고로 
+## spring-cloud-bus 를 이용하여 설정값 자동 갱신하기
+
+### /actuator/busrefresh
+클라이언트 서버에서 /actuator/busrefresh 를 하면 카프카로 전달되어 다른 클라이언트 서버에도 전달이 되겠지만 k8s 환경에서 ip가 계속 바뀌는데 특정 서버를 찔러서 갱신하는건 비효율적이다.
+
+### webhook은 어때?
+github webhook을 이용하여 config-server에 이벤트를 전달해 줘야 하는데, github에 바로 쏘면 config-server가 잘 못 받는다고 한다 ([참고](https://happycloud-lee.tistory.com/211))
+
+그래서 별도 서버를 구축하는데 이것도 귀찮고 불필요하니 config-monitor를 꽂으면 그 역활을 해준다고 한다. 
+
+### 결론은, spring-cloud-config-monitor 를 사용하자 
+config-monitor 라이브러리를 추가하여 /monitor라는 엔드포인트를 활성화 시켜서 git push 가 발생하면 github 에서 webhook으로 config-server에 /monitor 를 호출하게 한다 
+
+``` shell
+### config-server 에서 실행
+curl --location --request POST 'http://localhost:8080/api/v1/remote-configurations/monitor' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"path" : [
+"**"
+]
+}'
+["**"]%`
+```
+
+
+[문서](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_push_notifications_and_spring_cloud_bus)에서는 /monitor에서 트리거를 걸면 `RefreshRemoteApplicationEvent` 를 클라이언트 서버에게 전달 한다고함 
+
+
 
 ## 참고 사이트
 - https://cheese10yun.github.io/spring-config-client/

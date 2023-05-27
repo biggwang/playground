@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ironman
+    name: ratelimiter
   profiles:
     active: switch-develop
   cloud:
@@ -14,3 +14,20 @@ management:
     web:
       exposure:
         include: refresh, busrefresh
+
+resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        limitForPeriod: 3
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
+    instances:
+      transfer-limit:
+        limitForPeriod: 5
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
+      banks:
+        limitForPeriod: 7
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
