@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/design-patterns" />
+    <file type="web" url="file://$PROJECT_DIR$/hellokotlin" />
     <file type="web" url="file://$PROJECT_DIR$/race-condition" />
     <file type="web" url="file://$PROJECT_DIR$/spring-config" />
     <file type="web" url="file://$PROJECT_DIR$/spring-config-client" />
