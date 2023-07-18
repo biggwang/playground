@@ -18,9 +18,9 @@ jobs:
         id: delete_stuff
         with:
           github_token: ${{ github.token }}
-          last_commit_age_days: 2
+          last_commit_age_days: 3
           ignore_branches: ignore
-          github_base_url: https://github.com/biggwang
+          github_base_url: https://github.com
 
           # Disable dry run and actually get stuff deleted
           dry_run: no
