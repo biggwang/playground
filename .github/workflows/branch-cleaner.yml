@@ -18,7 +18,7 @@ jobs:
         id: delete_stuff
         with:
           github_token: ${{ github.token }}
-          last_commit_age_days: 1
+          last_commit_age_days: 2
           ignore_branches: ignore
           github_base_url: https://github.com/biggwang
 
