@@ -20,7 +20,7 @@ jobs:
           github_token: ${{ github.token }}
           last_commit_age_days: 1
           ignore_branches: ignore
-          github_base_url: https://github.com/biggwang/playground
+          github_base_url: https://github.com/biggwang
 
           # Disable dry run and actually get stuff deleted
           dry_run: no
