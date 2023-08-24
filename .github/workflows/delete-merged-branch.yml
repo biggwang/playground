@@ -1,7 +1,7 @@
 name: delete branch on close pr
-on:
-  pull_request:
-    types: [closed]
+on: push
+#  pull_request:
+#    types: [closed]
 
 jobs:
   delete-branch:
@@ -11,3 +11,6 @@ jobs:
         uses: SvanBoxel/delete-merged-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: find last commit
+        run: |
+          echo msg: ${{ github.event.head_commit.message }}
