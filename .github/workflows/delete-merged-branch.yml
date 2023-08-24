@@ -13,6 +13,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: find last commit
         run: |
-          echo msg: ${{ github.event.issue.number }}
+          echo msg: $DESCRIPTION
         env:
           DESCRIPTION: ${{ github.event.description }}
