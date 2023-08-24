@@ -1,3 +1,7 @@
+name: Delete branches
+
+on: "push"
+
 jobs:
   cleanup_old_branches:
     runs-on: ubuntu-latest
@@ -7,5 +11,5 @@ jobs:
       uses: dawidd6/action-delete-branch@v3
       with:
         github_token: ${{github.token}}
-        branches: 13,22,33
-        prefix: pr-
+        branches: "*"
+        prefix: feature-
