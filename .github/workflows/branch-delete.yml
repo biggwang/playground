@@ -1,0 +1,11 @@
+jobs:
+  cleanup_old_branches:
+    runs-on: ubuntu-latest
+    name: Satisfy my repo CDO
+    steps:
+    - name: Delete pr-* branches
+      uses: dawidd6/action-delete-branch@v3
+      with:
+        github_token: ${{github.token}}
+        branches: 13,22,33
+        prefix: pr-

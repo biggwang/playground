@@ -1,5 +1,6 @@
 package com.biggwang.springconfigclient.listener;
 
+import com.biggwang.springconfigclient.configswitch.EnableConfigProperty;
 import com.biggwang.springconfigclient.configswitch.RateLimiterConfigProperty;
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
@@ -17,12 +18,12 @@ import java.time.Duration;
 public class RateLimiterConfigListener {
 
     private final RateLimiterRegistry registry;
-    private final RateLimiterConfigProperty ratelimiterConfigProperty;
+    private final EnableConfigProperty enableConfigProperty;
 
     @EventListener(RefreshScopeRefreshedEvent.class)
     public void onRefresh(RefreshScopeRefreshedEvent event) {
         log.warn("##### onRefresh {} {}", event.getName(), event.getSource());
-        ratelimiterConfigProperty.targets.forEach(config -> updateRateLimits(config.getName(), config.getLimitForPeriod(), config.getTimeoutDuration()));
+//        ratelimiterConfigProperty.targets.forEach(config -> updateRateLimits(config.getName(), config.getLimitForPeriod(), config.getTimeoutDuration()));
     }
 
     private void updateRateLimits(String rateLimiterName, int newLimitForPeriod, Duration newTimeoutDuration) {
