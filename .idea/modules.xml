@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.playground.playground-consumer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.playground.playground-consumer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/design-patterns.main.iml" filepath="$PROJECT_DIR$/.idea/modules/design-patterns.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/design-patterns.test.iml" filepath="$PROJECT_DIR$/.idea/modules/design-patterns.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/playground.iml" filepath="$PROJECT_DIR$/.idea/playground.iml" />

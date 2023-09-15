@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/biggwang-app" />
     <file type="web" url="file://$PROJECT_DIR$/design-patterns" />
+    <file type="web" url="file://$PROJECT_DIR$/hello-gralde-jar" />
     <file type="web" url="file://$PROJECT_DIR$/hellokotlin" />
     <file type="web" url="file://$PROJECT_DIR$/race-condition" />
     <file type="web" url="file://$PROJECT_DIR$/spring-config" />

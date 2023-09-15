@@ -1,7 +1,5 @@
 name: delete branch on close pr
 on: push
-#  pull_request:
-#    types: [closed]
 
 jobs:
   delete-branch:
