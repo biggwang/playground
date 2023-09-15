@@ -2,7 +2,6 @@ name: Cleanup old branches
 on:
   push:
     branches:
-      - main
       - master
       - develop
 jobs:
@@ -16,10 +15,10 @@ jobs:
         uses: icyak/delete-old-branches-action@v0.0.1
         with:
           repo_token: ${{ github.token }}
-          date: '5 seconds ago'
+          date: '3 months ago'
           dry_run: true
           delete_tags: true
           minimum_tags: 5
-          extra_protected_branch_regex: ^(feature|develop|sandbox)$
+          extra_protected_branch_regex: ^(foo|bar)$
           extra_protected_tag_regex: '^v.*'
           exclude_open_pr_branches: true
