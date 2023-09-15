@@ -1,9 +1,11 @@
 name: Delete abandoned branches
 
 on:
+  push:
+    - main
   # Run daily at midnight
-  schedule:
-    - cron: "* * * * *"
+#  schedule:
+#    - cron: "* * * * *"
 
   # Allow workflow to be manually run from the GitHub UI
   workflow_dispatch:
