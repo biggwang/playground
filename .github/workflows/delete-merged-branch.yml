@@ -9,10 +9,10 @@ jobs:
         uses: SvanBoxel/delete-merged-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: find last commit
-        env:
-          DESCRIPTION: ${{ github.event.description }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo msg: $DESCRIPTION
-          gh api repos/biggwang/playground/branches/main
+#      - name: find last commit
+#        env:
+#          DESCRIPTION: ${{ github.event.description }}
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          echo msg: $DESCRIPTION
+#          gh api repos/biggwang/playground/branches/main
