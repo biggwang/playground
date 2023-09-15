@@ -2,7 +2,9 @@ name: Delete abandoned branches
 
 on:
   push:
-    - main
+    branches:
+      - main
+      - develop
   # Run daily at midnight
 #  schedule:
 #    - cron: "* * * * *"
