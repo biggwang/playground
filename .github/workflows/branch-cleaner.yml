@@ -13,13 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Satisfy my repo CDO
     steps:
-      - name: Delete those pesky dead branches
-        uses: phpdocker-io/github-actions-delete-abandoned-branches@v1
+      - name: Delete abandoned branches
+        uses: phpdocker-io/github-actions-delete-abandoned-branches@v2.0.3
         id: delete_stuff
         with:
           github_token: ${{ github.token }}
           last_commit_age_days: 1
-          ignore_branches: ignore
+          allowed_prefixes: release/
+          ignore_branches: master,main,sandbox,develop
           github_base_url: https://api.github.com
 
           # Disable dry run and actually get stuff deleted
