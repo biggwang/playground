@@ -21,7 +21,6 @@ jobs:
           last_commit_age_days: 1
           allowed_prefixes: release/
           ignore_branches: master,main,sandbox,develop
-          github_base_url: https://api.github.com
 
           # Disable dry run and actually get stuff deleted
           dry_run: no
