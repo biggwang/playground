@@ -3,4 +3,4 @@ exclude:
   - qa
   - feature-*
   - feature/*
-delete_closed_pr: true
+delete_closed_pr: false
